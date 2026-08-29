@@ -1,59 +1,77 @@
-# AngularCodingStandards
+# Angular Coding Standards
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.0.
+Configurações base para manter projetos Angular consistentes entre máquinas, sistemas operacionais e editores.
 
-## Development server
+A ideia deste repositório é guardar arquivos simples de padronização do workspace, sem depender de configurações globais da sua máquina. Você pode copiar estes arquivos para qualquer projeto Angular novo ou existente.
 
-To start a local development server, run:
+## O que está incluído
 
-```bash
-ng serve
+- `.editorconfig`: padrão geral de indentação, charset, quebra de linha final e limpeza de espaços.
+- `.prettierrc`: regras do Prettier para TypeScript, HTML Angular, CSS, JSON e demais arquivos suportados.
+- `.vscode/settings.json`: configura o VS Code para formatar ao salvar usando Prettier.
+- `.vscode/extensions.json`: recomenda extensões importantes para o projeto.
+- Scripts `npm run format` e `npm run format:check` no `package.json`.
+
+## Extensões recomendadas do VS Code
+
+Instale estas extensões no VS Code:
+
+- Angular Language Service: `angular.ng-template`
+- Prettier - Code formatter: `esbenp.prettier-vscode`
+
+Ao abrir o projeto no VS Code, ele deve sugerir automaticamente as extensões listadas em `.vscode/extensions.json`.
+
+## Como usar em outro projeto Angular
+
+Copie estes arquivos para a raiz do outro projeto:
+
+```text
+.editorconfig
+.prettierrc
+.vscode/settings.json
+.vscode/extensions.json
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Depois, adicione estes scripts no `package.json` do projeto:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```json
+{
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  }
+}
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Se o projeto ainda não tiver o Prettier instalado, instale como dependência de desenvolvimento:
 
 ```bash
-ng generate --help
+npm install -D prettier
 ```
 
-## Building
+## Comandos úteis
 
-To build the project run:
+Formatar o projeto inteiro:
 
 ```bash
-ng build
+npm run format
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Verificar formatação sem alterar arquivos:
 
 ```bash
-ng test
+npm run format:check
 ```
 
-## Running end-to-end tests
+## Por que versionar essas configs
 
-For end-to-end (e2e) testing, run:
+Esses arquivos deixam o padrão do projeto junto com o código. Assim, quando você clonar o repositório em outro notebook ou outro sistema operacional, o VS Code, o Prettier e o EditorConfig aplicam as mesmas regras sem depender de configurações manuais globais.
 
-```bash
-ng e2e
-```
+## O que evitar versionar
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Evite colocar neste repositório configurações pessoais ou sensíveis, como:
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- tokens e credenciais;
+- caminhos absolutos da sua máquina;
+- preferências globais do VS Code que não pertencem ao projeto;
+- arquivos gerados, como `node_modules` e `dist`.
